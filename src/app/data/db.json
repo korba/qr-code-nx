@@ -1,0 +1,19 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Screen",
+      "description": "Flat LCD Screen"
+    },
+    {
+      "id": 2,
+      "name": "Mouse",
+      "description": "Optical Mouse"
+    },
+    {
+      "id": 3,
+      "name": "Keyboard",
+      "description": "Wireless keyboard"
+    }
+  ]
+}

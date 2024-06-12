@@ -1,0 +1,36 @@
+<div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+            Product List
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table mb-0"
+                       *ngIf="products && products.length">
+                  <thead>
+                    <tr>
+                      <th>Id</th>                        
+                      <th>Product</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let product of products">
+                        <td>{{ product.id }}</td>                        
+                      <td>
+                        <a [routerLink]="['/products', product.id]">
+                          {{ product.name }}
+                        </a>
+                      </td>
+                      <td>{{ product.description }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>            
+
+        </div>
+      </div>
+    </div>
+  </div>

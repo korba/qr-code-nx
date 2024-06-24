@@ -12,3 +12,11 @@ div.card {
 .table {
   margin-top: 10px;
 }
+
+thead {
+  color: #337AB7;
+}
+
+a:visited, a:link {
+  text-decoration: none;
+}

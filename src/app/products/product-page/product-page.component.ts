@@ -1,26 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { IProduct, IProductResolved } from '../product.model';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ProductService } from '../product.service';
 
 @Component({
   selector: 'app-product-page',
   templateUrl: './product-page.component.html',
-  styleUrl: './product-page.component.css'
 })
-export class ProductPageComponent implements OnInit {
-  product: IProduct | null = null;
-  errorMessage = "";
+export class ProductPageComponent {
   qrCode = "";
+  showQR = false;
 
-  constructor(private route: ActivatedRoute) { }
+  private productService = inject(ProductService);
 
-  ngOnInit(): void {
-    const resolvedData: IProductResolved =
-      this.route.snapshot.data['resolvedData'];
-    this.errorMessage = resolvedData.error;
-    this.product = resolvedData.product;
+  product = this.productService.productById;
+  errorMessage = this.productService.productByIdError;
+  
+  generateQRCode():void {
+    this.qrCode = JSON.stringify(this.product());
+    this.showQR = true;
+  }
 
-    if (this.product)
-      this.qrCode = "name: " +this.product?.name + " description: " + this.product?.description;        
+  hideQR(): void {
+    this.showQR = false;
   }
 }

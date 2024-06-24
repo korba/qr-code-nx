@@ -2,40 +2,24 @@ import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { EMPTY, Subscription, catchError } from 'rxjs';
 import { ProductService } from '../product.service';
 import { IProduct } from '../product.model';
+import { Router } from '@angular/router';
 
 @Component({
+  styles: 'tr:hover td { background-color: lightblue;}',
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
-  styleUrl: './product-list.component.css'
 })
-export class ProductListComponent  implements OnInit, OnDestroy {
-  pageTitle = 'Products';
-  errorMessage = '';
+export class ProductListComponent  {
+  pageTitle = 'Products List';  
 
-  sub!: Subscription;
   private productService = inject(ProductService);
+  private router = inject(Router);
 
-  // Products
-  products: IProduct[] = [];
+  products = this.productService.products;
+  errorMessage = this.productService.productsError;
 
-  // Selected product id to highlight the entry
-  selectedProductId = 0;
-
-  ngOnInit(): void {
-    this.sub = this.productService
-      .getProducts()
-      .pipe(
-        catchError((err) => {
-          this.errorMessage = err;
-          return EMPTY;
-        })
-      )
-      .subscribe({
-        next: (products) => (this.products = products),
-      });
+  productSelected(productId: number): void {
+    this.productService.productSelected(productId);
+    this.router.navigate(['/products', productId]);
   }
-
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
-  }  
 }

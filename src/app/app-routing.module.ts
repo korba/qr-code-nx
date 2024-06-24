@@ -10,7 +10,8 @@ const routes: Routes = [
     loadChildren: () => import('./products/product.module').then(m => m.ProductsModule) 
   },
   { 
-    path: 'start-page', component: AppComponent
+    path: 'start-page', component: AppComponent,
+    canActivate: [AuthGuard],
   },
   { 
     path: '', redirectTo: 'products', pathMatch: 'full' 
